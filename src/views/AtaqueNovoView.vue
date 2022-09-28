@@ -1,6 +1,7 @@
 <script>
 import AtaqueDataService from '../services/AtaqueDataService ';
 import AtaqueRequest from '../models/AtaqueRequest';
+import AtaqueResponse from '../models/AtaqueResponse';
 import TipoDataService from '../services/TipoDataService';
 export default {
     name: 'ataques-novo',
@@ -8,30 +9,43 @@ export default {
         return {
 
             ataqueRequest: new AtaqueRequest(),
+            AtaqueResponse: new AtaqueResponse(),
             salvo: false,
             categorias:[
                 {
                     indice: 1,
                     nome: "Fisico",
-                    nomeBanco: "Fisico"
+                    nomeBanco: "FISICO"
                 },
                 {
                     indice: 2,
                     nome: "Especial",
-                    nomeBanco: "Especial"
+                    nomeBanco: "ESPECIAL"
                 },
                 {
                     indice: 3,
                     nome: "Efeito",
-                    nomeBanco: "Efeito"
+                    nomeBanco: "EFEITO"
 
                 }
             ],
-            tipos: []
+            tipos: [],
+            desabilitarForca: false
 
         }
     },
     methods: {
+        salvar() {
+            AtaqueDataService.criar(this.ataqueRequest)
+                .then(resposta => {
+                    this.AtaqueResponse = resposta;
+                    this.salvo = true;
+                })
+                .catch(erro => {
+                    console.log(erro);
+                    this.salvo = false;
+                })
+        },
         carregarTipos(){
              TipoDataService.buscarTodos()
              .then(resposta => {
@@ -43,9 +57,19 @@ export default {
              });
 
         },
+        escolherCategoria(){
+            if(this.ataqueRequest.categoria == "EFEITO"){
+                this.desabilitarForca = true;
+            }else{
+                this.desabilitarForca = false;
+            }
+        },
         novo() {
-            this.ataqueRequest = new AtaqueRequest();
             this.salvo = false;
+            this.ataqueRequest = new AtaqueRequest();
+            this.ataqueRequest.categoria = this.categorias[1].nomeBanco;
+            this.AtaqueResponse = new AtaqueResponse();
+            this.desabilitarForca = false;
         }
         
 
@@ -69,29 +93,31 @@ export default {
                 required class="form-control" v-model="ataqueRequest.nome" id="nome">
                 
             </div>
-                <div class="col-6">
-                    <label for="foca" 
-                    class="forca-label">Força</label>
+                <div class="col-6" >
+                    <label for="forca" 
+                    class="forca-label">Força</label> 
                     <input type="text" 
-                    required class="form-control" v-model="ataqueRequest.nome" id="forca">
+                    required :disabled="desabilitarForca" class="form-control" 
+                    v-model="ataqueRequest.forca" id="forca">
                 </div>
-                <div class="col">
+                <div class="col-6">
                     <label for="acuracia" 
                     class="form-label">Acurácia</label>
                     <input type="text" 
                     required class="form-control" 
-                    v-model="ataqueRequest.nome" id="acuracia">
+                    v-model="ataqueRequest.acuracia" id="acuracia">
                 </div>
             <div class="col -3">
                 <label for="pp" 
                     class="form-label">PP</label>
                     <input type="number" 
                     required class="form-control" 
-                    v-model="ataqueRequest.nome" id="pp">
+                    v-model="ataqueRequest.pontosDePoder" id="pp" requeride>
             </div>
             <div class="col-9">
-              <label for="categoria" class=" form-label">State</label>
-              <select id="categoria" class="form-select" v-model="ataqueRequest.categoria">
+              <label for="categoria" class=" form-label">Categoria:</label>
+              <select id="categoria" @change="escolherCategoria" 
+              class="form-select" v-model="ataqueRequest.categoria">
                 <option v-for="categoria in categorias" :key="categoria.indice"
                 :value="categoria.nomeBanco">
                     {{categoria.nome}}
@@ -104,20 +130,25 @@ export default {
                 :value="tipo.id">
                     {{tipo.nome}}
                 </option>
-              </select>
+            </select>
             </div>
+                <div class="col-12">
+                    <label for="descricao" class="form-label">Descrição do Ataque: </label>
+                    <textarea class="form-control" id="descricao" v-model="ataqueRequest.descricao" rows="3"></textarea>
+                </div>
             </div>
-            categoria: {{ataqueRequest.categoria}}
             <button @click.prevent="salvar" class="btn btn-success">Salvar</button>
         </form>
     </div>
 
     <div v-else>
-        <h4>Salvo com sucesso!</h4>
-        <span>Tipo id: {{tipo.id}}</span>
-        <div class="row-sm">
-            <button @click="novo" class="btn btn-primary">Novo</button>
-        </div>
+        <div class="row">
+                <h4 class="mt-2">Salvo com sucesso!</h4>
+                <span>Ataque id: : {{AtaqueResponse.id}}</span>
+            </div>
+            <div class="row-sm">
+                <button @click="novo" class="btn btn-dark mt-2">Novo</button>
+            </div>
     </div>
 
 </template>

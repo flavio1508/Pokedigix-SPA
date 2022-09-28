@@ -1,6 +1,6 @@
-export default class AtaqueRequest{
+export default class AtaqueResponse{
     constructor(){
-     
+        this.id = null;
         this.nome = null;
         this.forca = 0;
         this.acuracia = 0;
@@ -13,6 +13,7 @@ export default class AtaqueRequest{
     }
 
     populate(obj){
+        this.id = obj.id;
         this.nome = obj.nome;
         this.forca = obj.forca;
         this.acuracia = obj.acuracia ;
@@ -24,6 +25,7 @@ export default class AtaqueRequest{
 
     toJson(){
         return{
+        id : this.id,
         nome : this.nome ,
         forca: this.forca,
         acuracia: this.acuracia ,
