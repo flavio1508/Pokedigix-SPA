@@ -4,7 +4,7 @@ import AtaqueRequest from '../models/AtaqueRequest';
 import AtaqueResponse from '../models/AtaqueResponse';
 import TipoDataService from '../services/TipoDataService';
 export default {
-    name: 'ataques-novo',
+    name: 'ataques-edit',
     data() {
         return {
 
@@ -36,7 +36,7 @@ export default {
     },
     methods: {
         salvar() {
-            AtaqueDataService.criar(this.ataqueRequest)
+            AtaqueDataService.atualizar(this.$route.params.id ,this.ataqueRequest)
                 .then(resposta => {
                     this.AtaqueResponse = resposta;
                     this.salvo = true;
@@ -50,7 +50,6 @@ export default {
              TipoDataService.buscarTodos()
              .then(resposta => {
                 this.tipos = resposta;
-                this.ataqueRequest.tipoId = this.tipos[0].id;
              })
              .catch(erro => {
                 console.log(erro);
@@ -64,20 +63,25 @@ export default {
                 this.desabilitarForca = false;
             }
         },
-        novo() {
-            this.salvo = false;
-            this.ataqueRequest = new AtaqueRequest();
-            this.ataqueRequest.categoria = this.categorias[1].nomeBanco;
-            this.AtaqueResponse = new AtaqueResponse();
-            this.desabilitarForca = false;
+         carregarAtaque(id){
+            AtaqueDataService.buscarPeloId(id)
+            .then(resposta => {
+                this.ataqueRequest = resposta;
+                this.ataqueRequest.tipoId = resposta.tipo.id;
+            })
+            .catch(erro => {
+                console.log(erro);
+            })
+        },
+        voltar(){
+            this.$router.push({name:'ataques-lista'});
         }
+        
+
     },
     mounted(){
         this.carregarTipos();
-       
-            this.novo();
-        
-       
+        this.carregarAtaque(this.$route.params.id);
     },
 
 }
@@ -148,7 +152,7 @@ export default {
                 <span>Ataque id: : {{AtaqueResponse.id}}</span>
             </div>
             <div class="row-sm">
-                <button @click="novo" class="btn btn-dark mt-2">Novo</button>
+                <button @click="voltar" class="btn btn-dark mt-2">Voltar</button>
             </div>
     </div>
 
