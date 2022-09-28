@@ -15,7 +15,7 @@ class AtaqueDataService{
         return resposta.data;
      }
 
-     async atualizar(id, pokemon){
+     async atualizar(id, ataque){
         let resposta = await http.put('/ataques/' + id, ataque);
         return resposta.data;
      }
