@@ -27,9 +27,12 @@ export default{
         novo(){
           this.tipo = new Tipo();
           this.salvo = false;
-        }
+        },
+          voltar() {
+      this.$router.push({ name: "tipos-lista" });
+    },
 
-    }
+    },
 }
 </script>
 <template>

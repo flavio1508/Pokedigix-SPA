@@ -15,8 +15,8 @@ class TipoDataService{
         return resposta.data;
      }
 
-     async atualizar(id, pokemon){
-        let resposta = await http.put('/tipos/'+ id, pokemon);
+     async atualizar(id, tipo){
+        let resposta = await http.put('/tipos/'+ id, tipo);
         return resposta.data;
      }
 
