@@ -53,7 +53,7 @@
     
     <div v-else>
       <h4>Salvo com sucesso!</h4>
-      <span>Tipo id: {{tipo.id}}</span>
+      <span>Treinador id: {{treinador.id}}</span>
       <div class="row-sm">
         <button @click="novo" class="btn btn-primary">Novo</button>
       </div>

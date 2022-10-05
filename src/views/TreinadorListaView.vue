@@ -143,7 +143,7 @@
                 ></button>
               </div>
               <div class="modal-body">
-                Ao confirmar, o tipo "<strong>{{treinadorSelecionado.nome}}</strong>" sera excluido.
+                Ao confirmar, o treinador "<strong>{{treinadorSelecionado.nome}}</strong>" sera excluido.
                 Deseja continuar?
               </div>
               <div class="modal-footer">
