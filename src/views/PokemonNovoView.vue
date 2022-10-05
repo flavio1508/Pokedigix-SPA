@@ -2,13 +2,15 @@
     import PokemonDataService from '../services/PokemonDataService';
     import TipoDataService from '../services/TipoDataService';
     import PokemonRequest from '../models/PokemonRequest';
+    import AtaqueDataService from '../services/AtaqueDataService ';
     export default {
         name: 'pokemons-novo',
         data() {
             return {
                 pokemonRequest: new PokemonRequest(),
                 tipos: [],
-                salvo:false
+                salvo:false,
+                ataques: [],
             }
         },
         methods: {
@@ -21,10 +23,29 @@
                     console.log(erro);
                 });
             },
+            carregarAtaques(){
+                AtaqueDataService.buscarTodos()
+                .then(resposta =>{
+                    this.ataques = resposta;
+                    this.pokemonRequest.ataquesIds[0] = "";
+                    this.pokemonRequest.ataquesIds[1] = "";
+                    this.pokemonRequest.ataquesIds[2] = "";
+                    this.pokemonRequest.ataquesIds[3] = "";
+                })
+                .catch(erro =>{
+                    console.log(erro);
+                });
+
+            },
             salvar() {
                 this.pokemonRequest.tiposIds = 
                 [... new 
                 Set(this.pokemonRequest.tiposIds.filter(tipo => tipo != ""))]
+                
+                this.pokemonRequest.ataquesIds = 
+                [... new 
+                Set(this.pokemonRequest.ataquesIds.filter(ataque => ataque != ""))]
+                
                 PokemonDataService.criar(this.pokemonRequest)
                 .then(()=>{
                     this.salvo = true;
@@ -41,6 +62,7 @@
         },
         mounted() {
             this.carregarTipos();
+            this.carregarAtaques();
         }
     }
     </script>
@@ -181,6 +203,62 @@
                         :value="tipo.id"
                     >
                         {{tipo.nome}}
+                    </option>
+            </select>
+        </div>
+        <div class="row">
+            <label for="ataque1" class="form-label">Ataque 1</label>
+            <select id="ataque1" class="form-select form-select-lg mb-3" 
+                aria-label=".form-select-lg example"
+                v-model="pokemonRequest.ataquesIds[0]">
+                    <option value="" selected>Nenhum</option>
+                    <option 
+                        v-for="ataque in ataques" 
+                        :key="ataque.id" 
+                        :value="ataque.id">
+                        {{ataque.nome}} | Forca:{{ataque.forca}} | {{ataque.categoria}} | {{ataque.tipo.nome}}
+                    </option>
+            </select>
+        </div>
+        <div class="row">
+            <label for="ataque2" class="form-label">Ataque 2</label>
+            <select id="ataque2" class="form-select form-select-lg mb-3" 
+                aria-label=".form-select-lg example"
+                v-model="pokemonRequest.ataquesIds[1]">
+                    <option value="" selected>Nenhum</option>
+                    <option 
+                        v-for="ataque in ataques" 
+                        :key="ataque.id" 
+                        :value="ataque.id">
+                        {{ataque.nome}} | Forca:{{ataque.forca}} | {{ataque.categoria}} | {{ataque.tipo.nome}}
+                    </option>
+            </select>
+        </div>
+        <div class="row">
+            <label for="ataque3" class="form-label">Ataque 3</label>
+            <select id="ataque3" class="form-select form-select-lg mb-3" 
+                aria-label=".form-select-lg example"
+                v-model="pokemonRequest.ataquesIds[2]">
+                    <option value="" selected>Nenhum</option>
+                    <option 
+                        v-for="ataque in ataques" 
+                        :key="ataque.id" 
+                        :value="ataque.id">
+                        {{ataque.nome}} | Forca:{{ataque.forca}} | {{ataque.categoria}} | {{ataque.tipo.nome}}
+                    </option>
+            </select>
+        </div>
+        <div class="row">
+            <label for="ataque4" class="form-label">Ataque 4</label>
+            <select id="ataque4" class="form-select form-select-lg mb-3" 
+                aria-label=".form-select-lg example"
+                v-model="pokemonRequest.ataquesIds[3]">
+                    <option value="" selected>Nenhum</option>
+                    <option 
+                        v-for="ataque in ataques" 
+                        :key="ataque.id" 
+                        :value="ataque.id">
+                        {{ataque.nome}} | Forca:{{ataque.forca}} | {{ataque.categoria}} | {{ataque.tipo.nome}}
                     </option>
             </select>
         </div>

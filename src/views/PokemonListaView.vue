@@ -183,7 +183,7 @@ export default {
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" @click="removerPokemonSelecionado"
-                data-bs-dismiss="modal">Apagar Ataque</button>
+                data-bs-dismiss="modal">Apagar Pokemon</button>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
           </div>
