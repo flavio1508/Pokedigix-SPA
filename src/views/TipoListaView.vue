@@ -44,8 +44,8 @@ export default {
       TipoDataService.remover(this.tipoSelecionado.id)
         .then(() => {
           this.tipos = this.tipos.filter(tipo => tipo.id != this.tipoSelecionado.id);
-        this.inicializaTipo();
-        this.isLoading = false;
+          this.inicializaTipo();
+          this.isLoading = false;
         })
         .catch(() => {
         this.inicializaTipo();
@@ -70,7 +70,7 @@ export default {
       <loading
         v-model:active="isLoading"
       />
-      <table class="table table-striped">
+      <table class="table table-dark " >
         <thead>
           <tr>
             <th scope="col">Nome do Tipo</th>
@@ -81,7 +81,7 @@ export default {
           <tr v-for="tipo in tipos" :key="tipo.id">
             <td>{{ tipo.nome }}</td>
             <td>
-              <button type="button" class="btn" @click="editar(tipo.id)">
+              <button type="button" class="btn btn-dark" @click="editar(tipo.id)">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -109,7 +109,7 @@ export default {
             <td>
               <button
                 type="button"
-                class="btn"
+                class="btn btn-dark "
                 data-bs-toggle="modal"
                 data-bs-target="#confirmacaoExclusao"
                 @click="selecionar(tipo)"
@@ -169,4 +169,3 @@ export default {
 </div>
 </template>
 
-    
