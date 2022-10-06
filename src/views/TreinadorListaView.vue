@@ -123,7 +123,7 @@
             </tbody>
           </table>
         </div>
-        <div
+        <div 
           class="modal fade"
           id="confirmacaoExclusao"
           tabindex="-1"

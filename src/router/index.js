@@ -8,6 +8,7 @@ import AtaqueListaView from '../views/AtaqueListaView.vue';
 import TreinadorListaView from '../views/TreinadorListaView.vue';
 import AtaqueEditView from '../views/AtaqueEditView.vue';
 import TipoEditView from '../views/TipoEditView.vue'
+import TreinadorNovoView from '../views/TreinadorNovoView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -60,6 +61,11 @@ const router = createRouter({
       path:'/treinadores/lista',
       name:'treinadores-lista',
       component: TreinadorListaView
+    },
+    {
+      path:'/treinadores/novo',
+      name:'treinadores-novo',
+      component: TreinadorNovoView
     }
   ]
 })
