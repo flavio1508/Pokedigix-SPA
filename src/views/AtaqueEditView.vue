@@ -1,5 +1,5 @@
 <script>
-import AtaqueDataService from '../services/AtaqueDataService ';
+import AtaqueDataService from '../services/AtaqueDataService';
 import AtaqueRequest from '../models/AtaqueRequest';
 import AtaqueResponse from '../models/AtaqueResponse';
 import TipoDataService from '../services/TipoDataService';
