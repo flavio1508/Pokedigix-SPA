@@ -1,6 +1,7 @@
 <script>
   import TreinadorDataService from '../services/TreinadorDataService';
   import Loading from "vue-loading-overlay";
+
   export default {
       name: "treinadores-lista",
       data() {
@@ -10,7 +11,7 @@
           };
       },
       components: {
-          Loading
+          Loading,
       },
       methods: {
           buscarTreinadores() {
@@ -35,6 +36,7 @@
   <template>
       <div>
           <h2>Lista de Treinadores</h2>
+        
           <loading v-model:active="isLoading" :is-full-page="fullPage" :loader="'dots'" />
   
           <div class="container-lg text-center row">

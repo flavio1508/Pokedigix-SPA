@@ -5,6 +5,10 @@ class PokemonDataService {
       let resposta = await http.get('/pokemons');
       return resposta.data;
    }
+   async buscarTodosPaginadoOrdenado(pagina, tamanho, campoOrdenacao, direcao, nome) {
+      let resposta = await http.get(`/pokemons?pagina=${pagina}&tamanho=${tamanho}&campoOrdenacao=${campoOrdenacao}&termo=${nome}&direcao=${direcao}`);
+      return resposta.data;
+  }
 
    async buscarPeloId(id) {
       let resposta = await http.get('/pokemons/'+ id);

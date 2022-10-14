@@ -1,6 +1,7 @@
 <script >
 import TipoDataService from '../services/TipoDataService';
 import Loading from "vue-loading-overlay";
+
 export default {
   name: "tipos-lista",
   data() {
@@ -12,6 +13,7 @@ export default {
   },
   components: {
     Loading,
+    
   },
   methods: {
     buscarTipos() {

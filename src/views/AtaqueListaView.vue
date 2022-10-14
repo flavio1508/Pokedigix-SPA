@@ -1,6 +1,7 @@
 <script>
     import AtaqueDataService from "../services/AtaqueDataService";
     import Loading from "vue-loading-overlay";
+    import Ordenacao from '../components/Ordenacao.vue';
     export default {
       name: "ataques-lista",
       data() {
@@ -9,10 +10,38 @@
           ataqueSelecionado: this.inicializaAtaque(),
           isLoading: false,
           fullPage: false,
+          ordenacao: {
+        titulo: "",
+        direcao: "",
+        campo: ""
+      },
+      opcoes: [{
+                titulo: "Nome: Crescente",
+                direcao: "ASC",
+                campo: "nome"
+            },
+            {
+                titulo: "Nome: Decrescente",
+                direcao: "DESC",
+                campo: "nome"
+            },
+          {
+            titulo: "Numero: Crescente",
+            direcao: "ASC",
+            campo: "numeroPokedex"
+          },
+          {
+            titulo: "Nivel: Decrescente",
+            direcao: "DESC",
+            campo: "nivel"
+          }],
+      termo: "" 
         };
       },
       components: {
         Loading,
+        Ordenacao
+        
       },
       methods: {
         buscarAtaques() {
