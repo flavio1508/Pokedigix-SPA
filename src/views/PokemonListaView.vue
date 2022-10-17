@@ -8,7 +8,7 @@ export default {
   data() {
     return {
       pokemons: [],
-      pagina: 0,
+      pagina: 1,
       tamanho: 4,
       ordenacao: {
         titulo: "",
@@ -61,18 +61,22 @@ export default {
       this.buscarPokemons()
     },
     buscarPokemons() {
-      PokemonDataService.buscarTodosPaginadoOrdenado(this.pagina, this.tamanho, this.ordenacao.campo, this.ordenacao.direcao, this.termo)
+      PokemonDataService.buscarTodosPaginadoOrdenado(this.pagina-1, this.tamanho, this.ordenacao.campo, this.ordenacao.direcao, this.termo)
         .then((resposta) => {
-          this.pokemons = resposta;
+          this.pokemons = resposta.pokemons;
+          this.total = resposta.totalPaginas;
         })
         .catch((erro) => {
           console.log(erro);
         });
     },
+    novo(){
+      this.$router.push({name:'pokemons-novo'})
+    }
   },
   mounted() {
-    this.buscarPokemons();
     this.ordenacao = this.opcoes[0];
+    this.buscarPokemons();
   },
 };
 </script>
@@ -174,7 +178,7 @@ export default {
             </div>
           </div>
         </div>
-        <Paginacao :total="total" :quantidade="quantidade" :atual="pagina" :trocarPagina="trocarPagina"></Paginacao>
+        <Paginacao :totalPaginas="total" :quantidadeItens="quantidade" :atual="pagina" :trocarPagina="trocarPagina"></Paginacao>
       </div>
       <div class="row">
         <div class="col-1">
