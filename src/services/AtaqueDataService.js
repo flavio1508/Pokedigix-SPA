@@ -6,13 +6,22 @@ class AtaqueDataService{
     return resposta.data;
      }
      async buscarTodosPaginadoOrdenado(pagina, tamanho, campoOrdenacao, direcao, nome) {
-      let resposta = await http.get(`/pokemons?pagina=${pagina}&tamanho=${tamanho}&campoOrdenacao=${campoOrdenacao}&termo=${nome}&direcao=${direcao}`);
+      let resposta = await http.get(`/ataques?pagina=${pagina}&tamanho=${tamanho}&campoOrdenacao=${campoOrdenacao}&termo=${nome}&direcao=${direcao}`);
       return resposta.data;
   }
      async buscarPeloId(id){
         let resposta = await http.get('/ataques/'+ id);
         return resposta.data;
      }
+     async buscarPeloNome(nome){
+      let resposta = await http.get('/ataques?termo=' + nome);
+      return resposta.data;
+  }
+
+  async buscarPeloIdDoTipo(id){
+      let resposta = await http.get('/ataques/tipo/' + id);
+      return resposta.data;
+  }
      async criar(ataque){
         let resposta = await http.post('/ataques', ataque);
         return resposta.data;

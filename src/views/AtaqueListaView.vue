@@ -61,13 +61,9 @@ export default {
       this.pagina = p;
       this.buscarAtaques();
     },
-    pesquisar(texto) {
-      this.termo = texto;
-      this.buscarAtaques()
-    },
     buscarAtaques() {
       this.isLoading = true;
-      AtaqueDataService.buscarTodos()
+      AtaqueDataService.buscarTodos(this.pagina - 1, this.tamanho, this.ordenacao.campo, this.ordenacao.direcao, this.termo)
         .then((resposta) => {
           this.ataques = resposta.ataques;
           this.total = resposta.totalPaginas
@@ -77,9 +73,6 @@ export default {
           console.log(erro);
           this.isLoading = false;
         });
-    },
-    novo(){
-      this.$router.push({name:'ataques-novo'})
     },
     editar(id) {
       this.$router.push({ name: "ataques-edit", params: { id: id } });
@@ -110,11 +103,13 @@ export default {
   },
   mounted() {
     this.buscarAtaques();
+    this.ordenacao = this.opcoes[0]
   },
 };
 </script>
             
 <template>
+  <main> 
   <div class="row">
     <h2 class="mb-4 mt-4">Lista de Ataques</h2>
     <div class="row justify-content-end">
@@ -193,14 +188,15 @@ export default {
               data-bs-dismiss="modal">Sim</button>
           </div>
         </div>
-        <Paginacao :totalPaginas="total" :quantidadeItens="quantidade" :atual="pagina" :trocarPagina="trocarPagina">
-        </Paginacao>
       </div>
       <div class="row">
         <div class="col-1">
-            <button @click="novo" class="btn btn-primary">Novo</button>
+          <button @click="novo" class="btn btn-primary">Novo</button>
         </div>
       </div>
     </div>
   </div>
+  <Paginacao :totalPaginas="total" :quantidadeItens="quantidade" :atual="pagina" :trocarPagina="trocarPagina">
+  </Paginacao>
+</main>
 </template>

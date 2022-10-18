@@ -14,7 +14,7 @@ export default {
       },
       totalPaginas: {
         type: Number,
-        default: 1
+        default: 3
       },
       atual: {
         type: Number,
