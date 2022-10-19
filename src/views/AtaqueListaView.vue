@@ -10,7 +10,7 @@ export default {
     return {
       ataques: [],
       pagina: 1,
-      tamanho: 4,
+      tamanho: 2,
       ataqueSelecionado: this.inicializaAtaque(),
       isLoading: false,
       fullPage: false,
@@ -19,7 +19,7 @@ export default {
         direcao: "",
         campo: ""
       },
-      total: 4,
+      totalPaginas: 4,
       quantidade: 3,
       opcoes: [{
         titulo: "Nome: Crescente",
@@ -63,10 +63,10 @@ export default {
     },
     buscarAtaques() {
       this.isLoading = true;
-      AtaqueDataService.buscarTodos(this.pagina - 1, this.tamanho, this.ordenacao.campo, this.ordenacao.direcao, this.termo)
+      AtaqueDataService.buscarTodosPaginadoOrdenado(this.pagina - 1, this.tamanho, this.ordenacao.campo, this.ordenacao.direcao, this.termo)
         .then((resposta) => {
           this.ataques = resposta.ataques;
-          this.total = resposta.totalPaginas
+          this.totalPaginas = resposta.totalPaginas
           this.isLoading = false;
         })
         .catch((erro) => {
@@ -196,7 +196,7 @@ export default {
       </div>
     </div>
   </div>
-  <Paginacao :totalPaginas="total" :quantidadeItens="quantidade" :atual="pagina" :trocarPagina="trocarPagina">
+  <Paginacao :totalPaginas="totalPaginas" :quantidadeItens="quantidade" :atual="pagina" :trocarPagina="trocarPagina">
   </Paginacao>
 </main>
 </template>

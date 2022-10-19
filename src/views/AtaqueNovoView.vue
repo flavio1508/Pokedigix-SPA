@@ -82,11 +82,9 @@
         <div v-if="!salvo">
             <form class="row g-3">
                 <div class="col-12">
-                    <label 
-                        for="nome" 
+                    <label for="nome" 
                         class="form-label">Nome do Ataque</label>
-                    <input 
-                        type="text"
+                    <input type="text"
                         placeholder="ex: Ataque do Trovao"
                         required 
                         class="form-control" 
@@ -94,8 +92,7 @@
                         id="nome" >
                 </div>
                 <div class="col-6">
-                    <label 
-                        for="forca" 
+                    <label for="forca" 
                         class="form-label">Forca</label>
                     <input 
                         type="text"
@@ -105,23 +102,18 @@
                         id="forca" >
                 </div>
                 <div class="col-6">
-                    <label 
-                        for="acuracia" 
+                    <label for="acuracia" 
                         class="form-label">Acuracia</label>
-                    <input 
-                        type="text"
+                    <input type="text"
                         required 
                         class="form-control" 
                         v-model="ataqueRequest.acuracia"
                         id="acuracia" >
                 </div>
                 <div class="col-3">
-                    <label 
-                        for="pp" 
+                    <label for="pp" 
                         class="form-label">PP</label>
-                    <input 
-                        type="number"
-                        required 
+                    <input type="number" required 
                         class="form-control" 
                         v-model="ataqueRequest.pontosDePoder"
                         id="pp" >
