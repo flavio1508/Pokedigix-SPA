@@ -10,6 +10,7 @@ const PageNotFoundView = () => import ('../views/PageNotFoundView.vue');
 const  AtaqueEditView = () => import ('../views/AtaqueEditView.vue');
 const  TipoEditView = () => import ('../views/TipoEditView.vue');
 const  TreinadorNovoView = () => import ('../views/TreinadorNovoView.vue');
+const CadastroView = () => import ('../views/CadastroView.vue');
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,7 @@ const router = createRouter({
       name: 'pokemons-lista',
       component: PokemonListaView
     },
+    
     {
       path: '/tipos/novo',
       name: 'tipos-novo',
@@ -72,7 +74,13 @@ const router = createRouter({
       path:'/treinadores/novo',
       name:'treinadores-novo',
       component: TreinadorNovoView
-    }
+    },
+    {
+      path:'/usuarios/novo',
+      name:'usuarios-novo',
+      component: CadastroView
+    },
+    
   ]
 })
 
